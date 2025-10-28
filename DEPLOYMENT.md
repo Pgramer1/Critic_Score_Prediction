@@ -31,17 +31,20 @@ Visit the live application: [Your Streamlit Cloud URL will be here]
 ## 📦 Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Pgramer1/Critic_Score_Prediction.git
 cd Critic_Score_Prediction
 ```
 
 2. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 3. Run the application:
+
 ```bash
 streamlit run app.py
 ```
@@ -51,6 +54,7 @@ streamlit run app.py
 ### Step 1: Prepare Your Repository
 
 Ensure your GitHub repository contains:
+
 - `app.py` (main application file)
 - `requirements.txt` (dependencies)
 - `Video_Games_Sales.csv` (dataset)
@@ -100,6 +104,7 @@ Critic_Score_Prediction/
 ## 📈 Features Used for Prediction
 
 The model uses 21 features including:
+
 - Sales data (NA, EU, JP, Other regions)
 - User scores and review counts
 - Game age and platform generation
@@ -117,6 +122,7 @@ This project is open source and available under the MIT License.
 ## 👨‍💻 Author
 
 **Pgramer1**
+
 - GitHub: [@Pgramer1](https://github.com/Pgramer1)
 
 ## 🙏 Acknowledgments

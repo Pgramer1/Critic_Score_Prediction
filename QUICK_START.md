@@ -11,6 +11,7 @@
 5. Done! ✅
 
 **Example Games to Try:**
+
 - Wii Sports → Score: ~76
 - Grand Theft Auto V → Score: ~97
 - Call of Duty: Modern Warfare 3 → Score: ~88
@@ -28,12 +29,14 @@
 ## 📊 Understanding Your Results
 
 ### Score Ranges:
+
 - **85-100:** 🌟 Universal Acclaim
 - **75-84:** ✅ Generally Favorable
 - **60-74:** 😐 Mixed Reviews
 - **Below 60:** ⚠️ Generally Unfavorable
 
 ### What You Get:
+
 - Predicted critic score (0-100)
 - Score interpretation
 - Global sales estimate
@@ -42,11 +45,13 @@
 ## 🔍 Search Tips
 
 ### Finding Games:
+
 - Type partial name: "mario" finds all Mario games
 - Use series name: "call of duty" finds all COD games
 - Try platform: Search then look at platform shown
 
 ### Available Games:
+
 - **5,000+ titles** in database
 - **31 platforms** (PS4, Xbox, Nintendo, PC, etc.)
 - **12 genres** (Action, Sports, RPG, etc.)
@@ -79,6 +84,7 @@ A: Yes! Search each game separately and compare scores
 ## 📱 Mobile Use
 
 Works great on phones:
+
 - Tap to select games
 - Swipe through results
 - Zoom on charts
@@ -86,6 +92,7 @@ Works great on phones:
 ## 🌐 Share Your App
 
 Once deployed on Streamlit Cloud:
+
 - Share the URL with friends
 - Works in any browser
 - No installation needed
@@ -93,6 +100,7 @@ Once deployed on Streamlit Cloud:
 ## 🆘 Need Help?
 
 Check these pages in the app:
+
 - **Model Insights** - How it works
 - **Data Explorer** - Browse games
 - **README.md** - Technical details

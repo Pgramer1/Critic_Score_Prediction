@@ -3,6 +3,7 @@
 ## 🔄 New Workflow Comparison
 
 ### OLD WORKFLOW (Manual Only):
+
 ```
 ┌─────────────────────────────────────────┐
 │  User Opens App                         │
@@ -40,6 +41,7 @@ Steps: 12+
 ```
 
 ### NEW WORKFLOW (Search by Name):
+
 ```
 ┌─────────────────────────────────────────┐
 │  User Opens App                         │
@@ -93,15 +95,15 @@ Steps: 3
 
 ## 📊 Feature Comparison
 
-| Feature | Old Version | New Version |
-|---------|-------------|-------------|
-| **Input Methods** | Manual Only | Search OR Manual |
-| **User Steps** | 12+ steps | 3 steps (search) |
-| **Time Required** | 2-3 minutes | 10 seconds |
-| **Game Database** | Not utilized | 5,000+ games |
-| **Error Prone** | Yes (typos) | No (dropdown) |
-| **User Friendly** | Moderate | High |
-| **Learning Curve** | Steep | Easy |
+| Feature            | Old Version  | New Version      |
+| ------------------ | ------------ | ---------------- |
+| **Input Methods**  | Manual Only  | Search OR Manual |
+| **User Steps**     | 12+ steps    | 3 steps (search) |
+| **Time Required**  | 2-3 minutes  | 10 seconds       |
+| **Game Database**  | Not utilized | 5,000+ games     |
+| **Error Prone**    | Yes (typos)  | No (dropdown)    |
+| **User Friendly**  | Moderate     | High             |
+| **Learning Curve** | Steep        | Easy             |
 
 ## 🎯 App Pages Structure
 
@@ -161,6 +163,7 @@ Steps: 3
 ## 🤖 Model Information
 
 ### Random Forest Regressor
+
 ```
 Input Features (21):
 ├── Game Info
@@ -196,6 +199,7 @@ Output: Critic Score (0-100)
 ```
 
 ### Model Performance
+
 ```
 Training: 6,509 games (80%)
 Testing:  1,628 games (20%)
@@ -216,6 +220,7 @@ Interpretation:
 ## 🎨 Design Principles
 
 ### Color Scheme:
+
 ```
 Primary:   #3498db (Blue)    - Actions, headers
 Success:   #2ecc71 (Green)   - Positive metrics
@@ -225,6 +230,7 @@ Background: #f8f9fa (Gray)   - Clean backdrop
 ```
 
 ### UI Elements:
+
 ```
 📦 Cards       - Info display
 📊 Charts      - Plotly interactive
@@ -237,12 +243,14 @@ Background: #f8f9fa (Gray)   - Clean backdrop
 ## 🚀 Performance
 
 ### Speed:
+
 - Page Load: <2 seconds
 - Prediction: <1 second
 - Chart Render: <1 second
 - Search Filter: Instant
 
 ### Accuracy:
+
 - Random Forest: 82.3% R²
 - Typical Error: ±6 points
 - Best Model: Yes (vs 4 others)
@@ -250,16 +258,19 @@ Background: #f8f9fa (Gray)   - Clean backdrop
 ## 📱 Responsive Design
 
 ### Desktop (>1200px):
+
 - 2-column layout
 - Full charts
 - Side navigation
 
 ### Tablet (768-1200px):
+
 - 1-column layout
 - Responsive charts
 - Collapsible nav
 
 ### Mobile (<768px):
+
 - Stack elements
 - Touch-friendly
 - Simplified charts
@@ -275,6 +286,7 @@ Background: #f8f9fa (Gray)   - Clean backdrop
 ## 🌐 Deployment Ready
 
 ### Streamlit Cloud:
+
 ```bash
 1. Push to GitHub
 2. Deploy on share.streamlit.io
@@ -283,6 +295,7 @@ Background: #f8f9fa (Gray)   - Clean backdrop
 ```
 
 ### Requirements:
+
 - Python 3.9+
 - 5 packages only
 - CSV file included

@@ -5,6 +5,7 @@
 Your Streamlit app has been updated with the following improvements:
 
 ### 1. 🔍 **Game Name Search Feature**
+
 - **NEW:** Users can now simply type or select a game name
 - **Automatic Lookup:** App automatically retrieves all game details from the dataset
 - **5,000+ Games:** Search from over 5,000 games in the database
@@ -13,6 +14,7 @@ Your Streamlit app has been updated with the following improvements:
 ### 2. 🎯 **Dual Input Modes**
 
 #### Mode 1: Search by Name (NEW!)
+
 - Searchable dropdown with all game names
 - Type to filter and find games quickly
 - Displays game details automatically:
@@ -25,6 +27,7 @@ Your Streamlit app has been updated with the following improvements:
 - One-click prediction
 
 #### Mode 2: Manual Entry (Original)
+
 - Still available for custom/hypothetical games
 - Enter all details manually
 - Good for testing "what-if" scenarios
@@ -32,6 +35,7 @@ Your Streamlit app has been updated with the following improvements:
 ### 3. 🏆 **Random Forest Emphasis**
 
 **Updated Sections:**
+
 - ✅ Welcome message highlights Random Forest model
 - ✅ Model Insights page shows why RF was chosen
 - ✅ Advantages section added
@@ -39,6 +43,7 @@ Your Streamlit app has been updated with the following improvements:
 - ✅ Clear indication that RF is the selected model
 
 **Key Points Displayed:**
+
 - **Best Accuracy:** 82.3% R² Score
 - **Lowest Error:** RMSE of 5.88
 - **Outperforms:** All other models tested
@@ -47,6 +52,7 @@ Your Streamlit app has been updated with the following improvements:
 ### 4. 📊 **Enhanced Model Insights Page**
 
 **New Content:**
+
 - "Why Random Forest?" section
 - Advantages list (5 key benefits)
 - Performance comparison (vs other models)
@@ -56,10 +62,11 @@ Your Streamlit app has been updated with the following improvements:
 ## 🎨 User Experience Improvements
 
 ### Before:
+
 ```
 User had to:
 1. Select platform from dropdown
-2. Select genre from dropdown  
+2. Select genre from dropdown
 3. Enter year with slider
 4. Enter sales data (4 inputs)
 5. Enter user score
@@ -68,6 +75,7 @@ Total: 10+ manual inputs
 ```
 
 ### After:
+
 ```
 User can now:
 1. Type game name (e.g., "Wii Sports")
@@ -79,6 +87,7 @@ Total: 2 clicks!
 ## 📱 Example Workflow
 
 ### Quick Search Mode:
+
 1. Go to "🔮 Predict Score" page
 2. Select "🔎 Search by Name"
 3. Type game name (e.g., "Grand Theft Auto V")
@@ -88,6 +97,7 @@ Total: 2 clicks!
 7. **See prediction instantly!**
 
 ### Manual Mode (Still Available):
+
 1. Go to "🔮 Predict Score" page
 2. Select "📝 Enter Details Manually"
 3. Fill in all fields
@@ -97,6 +107,7 @@ Total: 2 clicks!
 ## 🎮 Sample Games to Try
 
 ### Popular Titles:
+
 - Wii Sports
 - Grand Theft Auto V
 - Call of Duty: Modern Warfare 3
@@ -106,6 +117,7 @@ Total: 2 clicks!
 - Mario Kart Wii
 
 ### Search Features:
+
 - **Type-ahead:** Start typing "Call" → see all Call of Duty games
 - **Instant filter:** Type "Mario" → see all Mario games
 - **Sorted list:** Games listed alphabetically
@@ -113,6 +125,7 @@ Total: 2 clicks!
 ## 🚀 Technical Details
 
 ### New Code Features:
+
 - Searchable selectbox with 5,000+ game names
 - Automatic data lookup from dataset
 - Conditional rendering (search vs manual)
@@ -120,6 +133,7 @@ Total: 2 clicks!
 - Improved prediction display with game name
 
 ### Model Information:
+
 - **Model Used:** Random Forest Regressor ONLY
 - **Training Data:** 8,137 games
 - **Features:** 21 predictive features
@@ -127,6 +141,7 @@ Total: 2 clicks!
 - **Error Rate:** ±5.88 points average
 
 ### Database:
+
 - **Total Games Available:** 5,085 unique titles
 - **Platforms:** 31 different platforms
 - **Genres:** 12 game genres
@@ -136,6 +151,7 @@ Total: 2 clicks!
 ## 📈 Benefits
 
 ### For Users:
+
 ✅ **Faster:** Get predictions in seconds
 ✅ **Easier:** No need to know game details
 ✅ **Accurate:** Uses actual game data
@@ -143,6 +159,7 @@ Total: 2 clicks!
 ✅ **Flexible:** Can still enter custom data
 
 ### For You:
+
 ✅ **Better UX:** More intuitive interface
 ✅ **More Engaging:** Search is interactive
 ✅ **Professional:** Looks more polished
@@ -161,6 +178,7 @@ Total: 2 clicks!
 ## 🌐 Deployment
 
 No changes needed for deployment:
+
 - Same files required
 - Same requirements.txt
 - Same deployment process
@@ -176,14 +194,14 @@ Just push the updated `app.py` to GitHub!
 
 ## 🎯 Key Improvements Summary
 
-| Feature | Before | After |
-|---------|--------|-------|
-| Input Method | Manual only | Search OR Manual |
-| User Steps | 10+ inputs | 2 clicks |
-| Game Database | Not used | 5,000+ games |
-| Model Info | Basic | Detailed + Comparison |
-| RF Emphasis | Mentioned | Highlighted |
-| Prediction Speed | Fast | Instant |
+| Feature          | Before      | After                 |
+| ---------------- | ----------- | --------------------- |
+| Input Method     | Manual only | Search OR Manual      |
+| User Steps       | 10+ inputs  | 2 clicks              |
+| Game Database    | Not used    | 5,000+ games          |
+| Model Info       | Basic       | Detailed + Comparison |
+| RF Emphasis      | Mentioned   | Highlighted           |
+| Prediction Speed | Fast        | Instant               |
 
 ## 💡 Usage Tips
 
@@ -195,6 +213,7 @@ Just push the updated `app.py` to GitHub!
 ## ✅ Ready to Use!
 
 Your app is now:
+
 - ✅ More user-friendly
 - ✅ Faster to use
 - ✅ Better explained
