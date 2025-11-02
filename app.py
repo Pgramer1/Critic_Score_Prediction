@@ -158,11 +158,11 @@ def train_model(df):
 def main():
     # Header
     st.title("Video Game Critic Score Predictor")
-    st.write("""
-        This AI-powered tool predicts critic scores for video games using a 
-        **Random Forest machine learning model** (82.3% accuracy). 
-        Search for a game by name or enter details manually to get instant predictions.
-    """)
+    # st.write("""
+    #     This AI-powered tool predicts critic scores for video games using a 
+    #     **Random Forest machine learning model** (82.3% accuracy). 
+    #     Search for a game by name or enter details manually to get instant predictions.
+    # """)
     
     # Load data and model
     try:
