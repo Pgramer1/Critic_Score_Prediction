@@ -17,31 +17,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for clean, minimal design (avoiding purple)
+# Custom CSS for dark/light mode compatibility
 st.markdown("""
     <style>
-    .main {
-        background-color: #f8f9fa;
-    }
     .stApp {
         max-width: 1400px;
         margin: 0 auto;
     }
+    
+    /* Headers - adapt to theme */
     h1 {
-        color: #2c3e50;
         font-weight: 700;
         padding-bottom: 20px;
         border-bottom: 3px solid #3498db;
     }
     h2 {
-        color: #34495e;
         font-weight: 600;
         margin-top: 30px;
     }
     h3 {
-        color: #16a085;
         font-weight: 500;
     }
+    
+    /* Buttons */
     .stButton>button {
         background-color: #3498db;
         color: white;
@@ -53,29 +51,32 @@ st.markdown("""
     }
     .stButton>button:hover {
         background-color: #2980b9;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
     }
+    
+    /* Prediction result box */
     .prediction-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
         padding: 30px;
         border-radius: 15px;
         text-align: center;
         color: white;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    }
-    .metric-card {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        margin: 10px 0;
-    }
-    .info-box {
-        background-color: #e8f4f8;
-        border-left: 4px solid #3498db;
-        padding: 15px;
-        border-radius: 5px;
+        box-shadow: 0 8px 16px rgba(52, 152, 219, 0.2);
         margin: 20px 0;
+    }
+    
+    .prediction-box h1, .prediction-box h2, .prediction-box h3, .prediction-box p {
+        color: white !important;
+    }
+    
+    /* Remove default streamlit styling that conflicts with dark mode */
+    [data-testid="stMetricValue"] {
+        font-size: 1.5rem;
+    }
+    
+    /* Ensure plotly charts work in both modes */
+    .js-plotly-plot {
+        border-radius: 8px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -156,53 +157,43 @@ def train_model(df):
 # Main app
 def main():
     # Header
-    st.markdown("<h1>🎮 Video Game Critic Score Predictor</h1>", unsafe_allow_html=True)
-    st.markdown("""
-        <div class='info-box'>
-        <strong>Welcome!</strong> This AI-powered tool predicts critic scores for video games using a 
-        <strong>Random Forest machine learning model</strong> (82.3% accuracy). 
-        Simply <strong>search for a game by name</strong> or enter details manually to get instant predictions!
-        </div>
-    """, unsafe_allow_html=True)
+    st.title("Video Game Critic Score Predictor")
+    st.write("""
+        This AI-powered tool predicts critic scores for video games using a 
+        **Random Forest machine learning model** (82.3% accuracy). 
+        Search for a game by name or enter details manually to get instant predictions.
+    """)
     
     # Load data and model
     try:
         df = load_data()
         model, scaler, label_encoders, df_clean = train_model(df)
     except FileNotFoundError:
-        st.error("⚠️ Data file not found. Please ensure 'Video_Games_Sales.csv' is in the same directory.")
+        st.error("Data file not found. Please ensure 'Video_Games_Sales.csv' is in the same directory.")
         return
     
     # Sidebar navigation
-    st.sidebar.title("📊 Navigation")
-    page = st.sidebar.radio("Go to", ["🔮 Predict Score", "📈 Model Insights", "📊 Data Explorer"])
+    st.sidebar.title("Navigation")
+    page = st.sidebar.radio("Go to", ["Predict Score", "Model Insights", "Data Explorer"])
     
-    if page == "🔮 Predict Score":
+    if page == "Predict Score":
         show_prediction_page(df_clean, model, scaler, label_encoders)
-    elif page == "📈 Model Insights":
+    elif page == "Model Insights":
         show_insights_page(model, df_clean)
     else:
         show_data_explorer_page(df_clean)
 
 def show_prediction_page(df_clean, model, scaler, label_encoders):
-    st.markdown("<h2>🎯 Predict Critic Score</h2>", unsafe_allow_html=True)
-    
-    # Search by game name
-    st.markdown("### 🔍 Search for a Game")
+    st.header("Predict Critic Score")
     
     # Create a searchable list of game names
     game_list = df_clean['Name'].unique().tolist()
     
     # Add option to search or select from dropdown
-    search_option = st.radio("Choose input method:", ["🔎 Search by Name", "📝 Enter Details Manually"], horizontal=True)
+    search_option = st.radio("Choose input method:", ["Search by Name", "Enter Details Manually"], horizontal=True)
     
-    if search_option == "🔎 Search by Name":
-        st.markdown("""
-            <div class='info-box'>
-            <strong>💡 Tip:</strong> Start typing the game name to see suggestions. 
-            Select a game from the dropdown to get an instant prediction!
-            </div>
-        """, unsafe_allow_html=True)
+    if search_option == "Search by Name":
+        st.info("Start typing the game name to see suggestions. Select a game from the dropdown to get an instant prediction.")
         
         # Searchable selectbox
         selected_game = st.selectbox(
@@ -216,20 +207,20 @@ def show_prediction_page(df_clean, model, scaler, label_encoders):
             game_data = df_clean[df_clean['Name'] == selected_game].iloc[0]
             
             # Display game information
-            st.markdown("### 🎮 Game Details")
+            st.subheader("Game Details")
             col1, col2, col3 = st.columns(3)
             
             with col1:
-                st.info(f"**Platform:** {game_data['Platform']}")
-                st.info(f"**Genre:** {game_data['Genre']}")
+                st.metric("Platform", game_data['Platform'])
+                st.metric("Genre", game_data['Genre'])
             
             with col2:
-                st.info(f"**Year:** {int(game_data['Year_of_Release'])}")
-                st.info(f"**Rating:** {game_data['Rating']}")
+                st.metric("Year", int(game_data['Year_of_Release']))
+                st.metric("Rating", game_data['Rating'])
             
             with col3:
-                st.info(f"**Publisher:** {game_data['Publisher']}")
-                st.info(f"**User Score:** {game_data['User_Score']}/10")
+                st.metric("Publisher", game_data['Publisher'])
+                st.metric("User Score", f"{game_data['User_Score']}/10")
             
             # Auto-fill values from dataset
             platform = game_data['Platform']
@@ -247,17 +238,17 @@ def show_prediction_page(df_clean, model, scaler, label_encoders):
             
             predict_button = True
         else:
-            st.warning("👆 Please select a game from the dropdown above")
+            st.warning("Please select a game from the dropdown above")
             predict_button = False
     
     else:
         # Manual input mode
-        st.markdown("### ✏️ Enter Game Details Manually")
+        st.subheader("Enter Game Details Manually")
         
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("#### 🎮 Game Information")
+            st.markdown("**Game Information**")
             platform = st.selectbox("Platform", sorted(df_clean['Platform'].unique()))
             genre = st.selectbox("Genre", sorted(df_clean['Genre'].unique()))
             rating = st.selectbox("ESRB Rating", sorted(df_clean['Rating'].unique()))
@@ -265,7 +256,7 @@ def show_prediction_page(df_clean, model, scaler, label_encoders):
             publisher = st.selectbox("Publisher", ['Nintendo', 'Other'])
             
         with col2:
-            st.markdown("#### 📊 Sales & Reviews")
+            st.markdown("**Sales & Reviews**")
             na_sales = st.number_input("North America Sales (millions)", 0.0, 50.0, 1.0, 0.1)
             eu_sales = st.number_input("Europe Sales (millions)", 0.0, 50.0, 1.0, 0.1)
             jp_sales = st.number_input("Japan Sales (millions)", 0.0, 50.0, 0.5, 0.1)
@@ -276,7 +267,7 @@ def show_prediction_page(df_clean, model, scaler, label_encoders):
         
         predict_button = True
     
-    if predict_button and st.button("🔮 Predict Critic Score", use_container_width=True):
+    if predict_button and st.button("Predict Critic Score", use_container_width=True):
         # Prepare input
         global_sales = na_sales + eu_sales + jp_sales + other_sales
         na_ratio = na_sales / (global_sales + 0.001)
@@ -319,10 +310,10 @@ def show_prediction_page(df_clean, model, scaler, label_encoders):
         # Display prediction with enhanced styling
         st.markdown("<br>", unsafe_allow_html=True)
         
-        if search_option == "🔎 Search by Name":
+        if search_option == "Search by Name":
             st.markdown(f"""
                 <div class='prediction-box'>
-                    <h3 style='color: white; margin: 0;'>🎮 {selected_game}</h3>
+                    <h3 style='color: white; margin: 0;'>{selected_game}</h3>
                     <h2 style='color: white; margin: 10px 0 0 0;'>Predicted Critic Score</h2>
                     <h1 style='color: white; font-size: 72px; margin: 20px 0;'>{prediction:.1f}</h1>
                     <p style='color: white; font-size: 18px; margin: 0;'>out of 100</p>
@@ -342,102 +333,72 @@ def show_prediction_page(df_clean, model, scaler, label_encoders):
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
             if prediction >= 85:
-                st.success("🌟 **Universal Acclaim**")
-                st.write("This game is predicted to be critically acclaimed!")
+                st.success("**Universal Acclaim** - This game is predicted to be critically acclaimed!")
             elif prediction >= 75:
-                st.info("✅ **Generally Favorable**")
-                st.write("This game should receive positive reviews.")
+                st.info("**Generally Favorable** - This game should receive positive reviews.")
             elif prediction >= 60:
-                st.warning("😐 **Mixed Reviews**")
-                st.write("This game may receive mixed critical reception.")
+                st.warning("**Mixed Reviews** - This game may receive mixed critical reception.")
             else:
-                st.error("⚠️ **Generally Unfavorable**")
-                st.write("This game may struggle with critics.")
-            st.markdown("</div>", unsafe_allow_html=True)
+                st.error("**Generally Unfavorable** - This game may struggle with critics.")
         
         with col2:
-            st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
-            st.metric("Global Sales", f"${global_sales:.2f}M")
-            st.write("Total estimated sales across all regions")
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.metric("Global Sales", f"${global_sales:.2f}M", help="Total estimated sales across all regions")
         
         with col3:
-            st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
-            st.metric("Review Coverage", f"{review_coverage*100:.1f}%")
-            st.write("Relative to maximum review count")
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.metric("Review Coverage", f"{review_coverage*100:.1f}%", help="Relative to maximum review count")
 
 def show_insights_page(model, df_clean):
-    st.markdown("<h2>📈 Model Performance & Insights</h2>", unsafe_allow_html=True)
+    st.header("Model Performance & Insights")
     
-    st.markdown("""
-        <div class='info-box'>
-        <strong>🌟 Best Model:</strong> This app uses the <strong>Random Forest Regressor</strong>, 
+    st.info("""
+        **Best Model:** This app uses the **Random Forest Regressor**, 
         which achieved the highest accuracy (82.3% R²) among all tested models including Polynomial Regression, 
         Linear Regression, Lasso, and Ridge regression.
-        </div>
-    """, unsafe_allow_html=True)
+    """)
     
     # Model metrics
-    st.markdown("### 🎯 Random Forest Performance")
+    st.subheader("Random Forest Performance")
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("Model Type", "Random Forest")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     with col2:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("R² Score", "0.823")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     with col3:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("RMSE", "5.88")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     with col4:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("Training Samples", "8,137")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     # Why Random Forest
-    st.markdown("### 🏆 Why Random Forest?")
+    st.subheader("Why Random Forest?")
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("""
-            <div class='metric-card'>
-            <h4 style='color: #2ecc71; margin-top: 0;'>✅ Advantages</h4>
-            <ul>
-                <li><strong>Highest Accuracy:</strong> 82.3% R² score</li>
-                <li><strong>Lowest Error:</strong> RMSE of only 5.88 points</li>
-                <li><strong>Robust:</strong> Handles non-linear relationships</li>
-                <li><strong>Feature Insights:</strong> Identifies important factors</li>
-                <li><strong>No Overfitting:</strong> Excellent cross-validation scores</li>
-            </ul>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("**Advantages**")
+        st.write("""
+        - **Highest Accuracy:** 82.3% R² score
+        - **Lowest Error:** RMSE of only 5.88 points
+        - **Robust:** Handles non-linear relationships
+        - **Feature Insights:** Identifies important factors
+        - **No Overfitting:** Excellent cross-validation scores
+        """)
     
     with col2:
-        st.markdown("""
-            <div class='metric-card'>
-            <h4 style='color: #3498db; margin-top: 0;'>📊 Performance vs Others</h4>
-            <ul>
-                <li><strong>vs Polynomial Reg:</strong> 14.5% better R²</li>
-                <li><strong>vs Linear Reg:</strong> 46.2% better R²</li>
-                <li><strong>vs Lasso/Ridge:</strong> 46.4% better R²</li>
-                <li><strong>Prediction Error:</strong> Typically ±6 points</li>
-                <li><strong>Consistency:</strong> Stable across datasets</li>
-            </ul>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("**Performance vs Others**")
+        st.write("""
+        - **vs Polynomial Reg:** 14.5% better R²
+        - **vs Linear Reg:** 46.2% better R²
+        - **vs Lasso/Ridge:** 46.4% better R²
+        - **Prediction Error:** Typically ±6 points
+        - **Consistency:** Stable across datasets
+        """)
     
     # Feature importance
-    st.markdown("### 🔍 Feature Importance")
+    st.subheader("Feature Importance")
     feature_names = ['Year_of_Release', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 
                     'Global_Sales', 'Critic_Count', 'User_Score', 'User_Count',
                     'NA_Sales_Ratio', 'EU_Sales_Ratio', 'JP_Sales_Ratio', 'Game_Age',
@@ -453,32 +414,23 @@ def show_insights_page(model, df_clean):
                  title='Top 10 Most Important Features',
                  color='Importance',
                  color_continuous_scale=['#3498db', '#2ecc71', '#f39c12'])
-    fig.update_layout(height=500, showlegend=False)
+    fig.update_layout(height=500, showlegend=False, template='plotly')
     st.plotly_chart(fig, use_container_width=True)
     
     # Model comparison
-    st.markdown("### 📊 Model Selection Process")
-    st.markdown("""
-        We trained and compared 5 different machine learning models to find the best performer:
-    """)
+    st.subheader("Model Selection Process")
+    st.write("We trained and compared 5 different machine learning models to find the best performer:")
     
     comparison_data = {
-        'Model': ['Random Forest ⭐', 'Polynomial Reg', 'Linear Reg', 'Lasso (L1)', 'Ridge (L2)'],
+        'Model': ['Random Forest (Selected)', 'Polynomial Regression', 'Linear Regression', 'Lasso (L1)', 'Ridge (L2)'],
         'RMSE': [5.88, 6.87, 9.24, 9.24, 9.24],
         'R² Score': [0.823, 0.758, 0.563, 0.562, 0.562],
-        'Status': ['✅ Selected', '❌ Not Used', '❌ Not Used', '❌ Not Used', '❌ Not Used']
+        'Status': ['Selected', 'Not Used', 'Not Used', 'Not Used', 'Not Used']
     }
     comparison_df = pd.DataFrame(comparison_data)
     
     # Display as table
-    st.dataframe(
-        comparison_df.style.apply(
-            lambda x: ['background-color: #d4edda' if x['Status'] == '✅ Selected' else '' for i in x],
-            axis=1
-        ),
-        use_container_width=True,
-        hide_index=True
-    )
+    st.dataframe(comparison_df, use_container_width=True, hide_index=True)
     
     fig = go.Figure()
     colors = ['#2ecc71', '#95a5a6', '#95a5a6', '#95a5a6', '#95a5a6']
@@ -494,62 +446,57 @@ def show_insights_page(model, df_clean):
         height=400, 
         title='R² Score Comparison (Higher is Better)',
         yaxis_title='R² Score',
-        showlegend=False
+        showlegend=False,
+        template='plotly'
     )
     st.plotly_chart(fig, use_container_width=True)
 
 def show_data_explorer_page(df_clean):
-    st.markdown("<h2>📊 Data Explorer</h2>", unsafe_allow_html=True)
+    st.header("Data Explorer")
     
     # Dataset overview
-    st.markdown("### 📋 Dataset Overview")
+    st.subheader("Dataset Overview")
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("Total Games", f"{len(df_clean):,}")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     with col2:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("Platforms", f"{df_clean['Platform'].nunique()}")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     with col3:
-        st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
         st.metric("Genres", f"{df_clean['Genre'].nunique()}")
-        st.markdown("</div>", unsafe_allow_html=True)
     
     # Critic Score distribution
-    st.markdown("### 📈 Critic Score Distribution")
+    st.subheader("Critic Score Distribution")
     fig = px.histogram(df_clean, x='Critic_Score', nbins=30,
                        title='Distribution of Critic Scores',
                        color_discrete_sequence=['#3498db'])
-    fig.update_layout(height=400)
+    fig.update_layout(height=400, template='plotly')
     st.plotly_chart(fig, use_container_width=True)
     
     # Genre analysis
-    st.markdown("### 🎮 Average Critic Score by Genre")
+    st.subheader("Average Critic Score by Genre")
     genre_avg = df_clean.groupby('Genre')['Critic_Score'].mean().sort_values(ascending=False)
     fig = px.bar(x=genre_avg.values, y=genre_avg.index, orientation='h',
                  title='Average Critic Score by Genre',
                  color=genre_avg.values,
                  color_continuous_scale=['#e74c3c', '#f39c12', '#2ecc71'])
-    fig.update_layout(height=500, showlegend=False)
+    fig.update_layout(height=500, showlegend=False, template='plotly')
     st.plotly_chart(fig, use_container_width=True)
     
     # Platform analysis
-    st.markdown("### 🕹️ Top Platforms by Game Count")
+    st.subheader("Top Platforms by Game Count")
     platform_counts = df_clean['Platform'].value_counts().head(10)
     fig = px.bar(x=platform_counts.index, y=platform_counts.values,
                  title='Top 10 Platforms',
                  color=platform_counts.values,
                  color_continuous_scale=['#3498db', '#2ecc71'])
-    fig.update_layout(height=400, showlegend=False)
+    fig.update_layout(height=400, showlegend=False, template='plotly')
     st.plotly_chart(fig, use_container_width=True)
     
     # Sample data
-    st.markdown("### 🔍 Sample Data")
+    st.subheader("Sample Data")
     st.dataframe(df_clean[['Name', 'Platform', 'Genre', 'Year_of_Release', 
                            'Critic_Score', 'User_Score', 'Global_Sales']].head(20),
                 use_container_width=True)
