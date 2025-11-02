@@ -39,30 +39,38 @@ Before deploying, verify you have these files in your repository:
 Fill in the deployment form:
 
 #### **Repository:**
+
 ```
 Repository: Pgramer1/Critic_Score_Prediction
 ```
+
 - If you don't see it, type the full repository name
 - Make sure your repo is public (or grant Streamlit access to private repos)
 
 #### **Branch:**
+
 ```
 Branch: main
 ```
+
 - This is your main branch
 - You can select a different branch if needed
 
 #### **Main File Path:**
+
 ```
 Main file path: app.py
 ```
+
 - This tells Streamlit which file to run
 - Our main app file is `app.py` in the root directory
 
 #### **App URL (optional):**
+
 ```
 Custom URL: critic-score-predictor
 ```
+
 - Or leave blank for auto-generated URL
 - Must be unique across all Streamlit apps
 
@@ -71,12 +79,15 @@ Custom URL: critic-score-predictor
 Click **"Advanced settings"** if you want to customize:
 
 #### **Python Version:**
+
 ```
 Python version: 3.9
 ```
+
 (or 3.10, 3.11 - all work fine)
 
 #### **Secrets:**
+
 - Not needed for this app (no API keys)
 - Leave blank
 
@@ -106,6 +117,7 @@ Starting app...
 ### **Step 8: App Goes Live!** 🎉
 
 Once complete, you'll see:
+
 ```
 ✓ App is live at:
 https://critic-score-predictor.streamlit.app
@@ -118,15 +130,19 @@ https://critic-score-predictor.streamlit.app
 After deployment, your app will be available at:
 
 ### **Primary URL:**
+
 ```
 https://[your-custom-name].streamlit.app
 ```
+
 or
+
 ```
 https://pgramer1-critic-score-prediction-app-[hash].streamlit.app
 ```
 
 ### **Management URL:**
+
 ```
 https://share.streamlit.io/[your-username]/[repo-name]
 ```
@@ -172,6 +188,7 @@ When you make changes:
 ### **Update Theme:**
 
 Already configured in `.streamlit/config.toml`:
+
 - Primary color: Blue (#3498db)
 - Background: Light gray (#f8f9fa)
 - No purple shades ✅
@@ -179,6 +196,7 @@ Already configured in `.streamlit/config.toml`:
 ### **Analytics:**
 
 Streamlit Cloud provides:
+
 - Daily active users
 - Page views
 - Error rates
@@ -193,6 +211,7 @@ Access via: **App Settings → Analytics**
 ### **Problem: App won't deploy**
 
 **Solutions:**
+
 1. Check if repo is public
 2. Verify `requirements.txt` exists
 3. Check `app.py` has no syntax errors
@@ -202,6 +221,7 @@ Access via: **App Settings → Analytics**
 
 **Solution:**
 Check `requirements.txt` includes all packages:
+
 ```
 streamlit==1.28.0
 pandas==2.0.3
@@ -213,6 +233,7 @@ plotly==5.17.0
 ### **Problem: CSV file not found**
 
 **Solution:**
+
 - Ensure `Video_Games_Sales.csv` is committed
 - Check file path in `app.py` (should be just the filename)
 - Verify file is in repository root
@@ -220,6 +241,7 @@ plotly==5.17.0
 ### **Problem: App is slow**
 
 **Solutions:**
+
 1. Add `@st.cache_data` to data loading (already done!)
 2. Add `@st.cache_resource` to model training (already done!)
 3. Check logs for errors
@@ -227,6 +249,7 @@ plotly==5.17.0
 ### **Problem: Theme not applied**
 
 **Solution:**
+
 - Ensure `.streamlit/config.toml` exists
 - Push changes to GitHub
 - Reboot app from dashboard
@@ -236,6 +259,7 @@ plotly==5.17.0
 ## 📊 Monitoring Your App
 
 ### **Check App Status:**
+
 1. Visit: https://share.streamlit.io
 2. Click on your app
 3. See status indicator:
@@ -244,12 +268,14 @@ plotly==5.17.0
    - 🔴 Red = Error
 
 ### **View Logs:**
+
 1. Click "Manage app"
 2. Click "Logs" tab
 3. See real-time logs
 4. Check for errors or warnings
 
 ### **Analytics Dashboard:**
+
 - Unique visitors
 - Page views
 - Average session time
@@ -260,17 +286,20 @@ plotly==5.17.0
 ## 🎯 Quick Commands Reference
 
 ### **View Your Apps:**
+
 ```
 Visit: https://share.streamlit.io
 ```
 
 ### **Test Locally Before Deploying:**
+
 ```bash
 cd c:\SEM-5\ML\Critic_Score_Prediction
 streamlit run app.py
 ```
 
 ### **Push Updates:**
+
 ```bash
 git add .
 git commit -m "Your message"
@@ -278,6 +307,7 @@ git push origin main
 ```
 
 ### **Check Git Status:**
+
 ```bash
 git status
 ```
@@ -300,6 +330,7 @@ You'll know deployment succeeded when:
 ## 🎉 You're Done!
 
 Once deployed:
+
 - ✅ **Share the URL** with anyone
 - ✅ **Works on any device** (mobile, tablet, desktop)
 - ✅ **No server maintenance** required
@@ -307,6 +338,7 @@ Once deployed:
 - ✅ **100% free** for public apps
 
 ### **Share Your App:**
+
 ```
 My Game Score Predictor is live! 🎮
 Check it out: [your-url]
@@ -340,6 +372,7 @@ Features:
 ## 🎊 Congratulations!
 
 Your critic score predictor is now:
+
 - ✅ **Live on the internet**
 - ✅ **Accessible worldwide**
 - ✅ **Professional-looking**
